@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.1.5'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.uk.harhay.ersda'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+    implementation 'com.google.guava:guava:11.0.2'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    runtimeOnly 'org.springdoc:springdoc-openapi-ui:1.7.0'
+    testCompileOnly 'org.projectlombok:lombok:1.18.30'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+    testImplementation 'commons-io:commons-io:2.15.0'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+//jar {
+//    manifest {
+//        attributes 'Main-Class': 'com.uk.harhay.ersda.controllers.FixturesController'
+//    }
+//    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+//}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

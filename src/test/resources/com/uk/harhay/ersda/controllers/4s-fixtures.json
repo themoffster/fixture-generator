@@ -1,0 +1,18 @@
+[
+  {
+    "matches": {
+      "ON_THE_HOUR": {
+        "PITCH_1": {
+          "homeTeam": {
+            "name": "Team 0",
+            "fakeTeam": false
+          },
+          "awayTeam": {
+            "name": "Team 1",
+            "fakeTeam": false
+          }
+        }
+      }
+    }
+  }
+]
