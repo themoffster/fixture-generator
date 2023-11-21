@@ -9,6 +9,8 @@ import static com.uk.harhay.ersda.domain.Pitch.PITCH_6;
 import static com.uk.harhay.ersda.domain.Pitch.PITCH_7;
 import static com.uk.harhay.ersda.domain.Pitch.PITCH_8;
 import static com.uk.harhay.ersda.domain.Team.fakeTeam;
+import static com.uk.harhay.ersda.utils.GeneratedFixtureUtils.getAwayTeams;
+import static com.uk.harhay.ersda.utils.GeneratedFixtureUtils.getHomeTeams;
 import static com.uk.harhay.ersda.utils.TeamUtils.buildTeams;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -114,35 +116,35 @@ class FoursFixtureGeneratorTest {
     }
 
     private void assertNoFakeTeams(GeneratedFixtures generatedFixtures) {
-        assertTrue(generatedFixtures.getHomeTeams().stream().noneMatch(Team::isFakeTeam));
-        assertTrue(generatedFixtures.getAwayTeams().stream().noneMatch(Team::isFakeTeam));
+        assertTrue(getHomeTeams(generatedFixtures.getMatches()).stream().noneMatch(Team::isFakeTeam));
+        assertTrue(getAwayTeams(generatedFixtures.getMatches()).stream().noneMatch(Team::isFakeTeam));
     }
 
     private void assertFakeTeamsAreAwayTeams(GeneratedFixtures generatedFixtures) {
-        assertTrue(generatedFixtures.getHomeTeams().stream().noneMatch(Team::isFakeTeam));
-        assertTrue(generatedFixtures.getAwayTeams().stream().anyMatch(Team::isFakeTeam));
+        assertTrue(getHomeTeams(generatedFixtures.getMatches()).stream().noneMatch(Team::isFakeTeam));
+        assertTrue(getAwayTeams(generatedFixtures.getMatches()).stream().anyMatch(Team::isFakeTeam));
     }
 
     private void assertAllMatchesOnOddPitches(GeneratedFixtures generatedFixtures) {
-        assertTrue(generatedFixtures.getHomeTeams(PITCH_1).size() > 0);
-        assertTrue(generatedFixtures.getHomeTeams(PITCH_3).size() > 0);
-        assertTrue(generatedFixtures.getHomeTeams(PITCH_5).size() > 0);
-        assertTrue(generatedFixtures.getHomeTeams(PITCH_7).size() > 0);
-        assertEquals(0, generatedFixtures.getHomeTeams(PITCH_2).size());
-        assertEquals(0, generatedFixtures.getHomeTeams(PITCH_4).size());
-        assertEquals(0, generatedFixtures.getHomeTeams(PITCH_6).size());
-        assertEquals(0, generatedFixtures.getHomeTeams(PITCH_8).size());
+        assertTrue(getHomeTeams(generatedFixtures.getMatches(), PITCH_1).size() > 0);
+        assertTrue(getHomeTeams(generatedFixtures.getMatches(), PITCH_3).size() > 0);
+        assertTrue(getHomeTeams(generatedFixtures.getMatches(), PITCH_5).size() > 0);
+        assertTrue(getHomeTeams(generatedFixtures.getMatches(), PITCH_7).size() > 0);
+        assertEquals(0, getHomeTeams(generatedFixtures.getMatches(), PITCH_2).size());
+        assertEquals(0, getHomeTeams(generatedFixtures.getMatches(), PITCH_4).size());
+        assertEquals(0, getHomeTeams(generatedFixtures.getMatches(), PITCH_6).size());
+        assertEquals(0, getHomeTeams(generatedFixtures.getMatches(), PITCH_8).size());
     }
 
     private void assertAllMatchesOnEvenPitches(GeneratedFixtures generatedFixtures) {
-        assertTrue(generatedFixtures.getHomeTeams(PITCH_2).size() > 0);
-        assertTrue(generatedFixtures.getHomeTeams(PITCH_4).size() > 0);
-        assertTrue(generatedFixtures.getHomeTeams(PITCH_6).size() > 0);
-        assertTrue(generatedFixtures.getHomeTeams(PITCH_8).size() > 0);
-        assertEquals(0, generatedFixtures.getHomeTeams(PITCH_1).size());
-        assertEquals(0, generatedFixtures.getHomeTeams(PITCH_3).size());
-        assertEquals(0, generatedFixtures.getHomeTeams(PITCH_5).size());
-        assertEquals(0, generatedFixtures.getHomeTeams(PITCH_7).size());
+        assertTrue(getHomeTeams(generatedFixtures.getMatches(), PITCH_2).size() > 0);
+        assertTrue(getHomeTeams(generatedFixtures.getMatches(), PITCH_4).size() > 0);
+        assertTrue(getHomeTeams(generatedFixtures.getMatches(), PITCH_6).size() > 0);
+        assertTrue(getHomeTeams(generatedFixtures.getMatches(), PITCH_8).size() > 0);
+        assertEquals(0, getHomeTeams(generatedFixtures.getMatches(), PITCH_1).size());
+        assertEquals(0, getHomeTeams(generatedFixtures.getMatches(), PITCH_3).size());
+        assertEquals(0, getHomeTeams(generatedFixtures.getMatches(), PITCH_5).size());
+        assertEquals(0, getHomeTeams(generatedFixtures.getMatches(), PITCH_7).size());
     }
 
     private void assertNumberOfFixturesForEachTeam(List<GeneratedFixtures> generatedFixtures, List<Team> teams, int numberOfMatches) {
@@ -167,8 +169,8 @@ class FoursFixtureGeneratorTest {
 
     private void assertHomeTeamsAreAlwaysHomeTeams(List<GeneratedFixtures> generatedFixtures) {
         generatedFixtures.forEach(fixtures -> {
-            var homeTeams = fixtures.getHomeTeams();
-            var awayTeams = fixtures.getAwayTeams();
+            var homeTeams = getHomeTeams(fixtures.getMatches());
+            var awayTeams = getAwayTeams(fixtures.getMatches());
             assertFalse(homeTeams.stream().anyMatch(awayTeams::contains));
         });
     }
